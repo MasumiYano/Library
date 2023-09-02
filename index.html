@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <title>Library 📚| Save & Read</title>
+</head>
+<body>
+    <div class="outermost-container">
+        <header>
+            <a href="#"><h1>Library</h1></a>
+            <a href="#" class="login">Log in</a>
+        </header>
+        <main class="main">
+            <div class="add-container">
+                <button class="add">+ Add Book</button>
+            </div>
+            <div class="book-container">
+                <div class="book">
+                    <p class="title">" Hobbit "</p>
+                    <p class="author">Example</p>
+                    <p class="pages">234 pages</p>
+                    <button class="btn not-read read-status">Not Read...</button>
+                    <button class="btn remove">Remove</button>
+                </div>
+                <form action="#" class="add-book not-visible">
+                    <label for="title">Title</label>
+                    <input type="text" name="title" id="title" placeholder="Title" required>
+                    <label for="author">Author</label>
+                    <input type="text" name="author" id="author" placeholder="Author" required>
+                    <label for="page">Page</label>
+                    <input type="number" name="page" id="page" min="0" required>
+                    <div class="read-container">
+                        <label for="read" class="read-toggle checkbox-label">Have You Read It?</label>
+                        <input type="checkbox" name="read" id="read" class="toggle">
+                    </div>
+                    <button class="btn submit">Submit</button>
+                </form>
+            </div>
+        </main>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>
