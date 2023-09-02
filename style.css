@@ -204,13 +204,13 @@ input[type = "checkbox"]{
     background-color: #d5d5d5;
     border-radius: 10px;
     cursor: pointer;
-    content: url("/iconmonstr-x-mark-1.svg");
+    content: url("/Library/iconmonstr-x-mark-1.svg");
     background-color: var(--not-read);
     padding: .5rem;
 }
 
 input[type = "checkbox"]:checked{
-    content: url("/iconmonstr-check-mark-1.svg");
+    content: url("/Library/iconmonstr-check-mark-1.svg");
     background-color: var(--read-color);
 }
 
