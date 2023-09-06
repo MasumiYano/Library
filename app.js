@@ -1,8 +1,8 @@
 /**
  * TODO: 
- * - Fix checkbox bug.
  * - Add style so that when form is open everything else if blur.
- * - Add functionality where when you're in form, if you click anywhere else other than form it closes form.
+ * - Add functionality where when you're in form, if you click anywhere else other 
+ *   than form it closes form.
  */
 
 const addBook = document.querySelector('.add');
@@ -21,33 +21,17 @@ const library = [];
 addBook.addEventListener('click', () => {
     addSection.classList.remove('not-visible');
     addSection.classList.add('visible');
-});
+    // document.querySelector('.dim').classList.remove('not-visible');
+    const dim = document.querySelector('.dim');
+    dim.classList.remove('not-visible');
 
-form.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const title = document.querySelector('#title').value;
-    const author = document.querySelector('#author').value;
-    const page = document.querySelector('#page').value;
-    const read = document.querySelector('#read').value;
-    form.classList.add('not-visible');
-
-    makeNewBook(title, author, page, read);
-});
-
-document.addEventListener('click', (e) => {
-    let bookToRemove;
-    if(e.target.classList.contains('remove')){
-        bookToRemove = e.target.closest('.book');
-    }
-
-    if(bookToRemove){
-        const bookIndex = library.findIndex(book => book.title === bookToRemove.querySelector('.title').textContent);
-        if(bookIndex !== -1){
-            library.splice(bookIndex, 1);
+    dim.addEventListener('click', (e) => {
+        if(e.target === dim){
+            form.reset();
+            form.classList.add('not-visible');
+            dim.classList.add('not-visible');
         }
-    }
-
-    bookToRemove.remove();
+    })
 });
 
 document.addEventListener('click', (e) => {
@@ -66,21 +50,57 @@ document.addEventListener('click', (e) => {
     }
 });
 
+form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const title = document.querySelector('#title').value;
+    const author = document.querySelector('#author').value;
+    const page = document.querySelector('#page').value;
+    const read = document.querySelector('#read');
+    const readValue = read.value;
+    makeNewBook(title, author, page, readValue);
+
+    read.value = 'off';
+    form.classList.add('not-visible');
+    document.querySelector('.dim').classList.add('not-visible');
+});
+
+document.addEventListener('change', (e) => {
+    if (e.target.classList.contains('toggle')) {
+        const checkbox = e.target;
+        if (checkbox.value === 'off') {
+            checkbox.value = 'on';
+        } else {
+            checkbox.value = 'off';
+        }
+        // alert(checkbox.value);
+    }
+});
+
+document.addEventListener('click', (e) => {
+    let bookToRemove;
+    if(e.target.classList.contains('remove')){
+        bookToRemove = e.target.closest('.book');
+    }
+
+    if(bookToRemove){
+        const bookIndex = library.findIndex(book => book.title === bookToRemove.querySelector('.title').textContent);
+        if(bookIndex !== -1){
+            library.splice(bookIndex, 1);
+        }
+    }
+
+    bookToRemove.remove();
+});
+
 function Book(title, author, pages, read){
     this.title = title;
     this.author = author;
     this.pages = pages;
-    this.read = function() {
-        if(this.read === 'on'){
-            read = true;
-        }else{
-            read = false;
-        }
-    }
+    this.read = read
 }
 
-function makeNewBook(title, author, page, read){
-    const newBook = new Book(title, author, page, read);
+function makeNewBook(title, author, page, readValue){
+    const newBook = new Book(title, author, page, readValue);
     library.push(newBook);
     counter++;
 
@@ -100,7 +120,7 @@ function makeNewBook(title, author, page, read){
     pageElement.textContent = `${page} pages`;
 
     const readElement = document.createElement('button');
-    if(newBook.read === true){
+    if(newBook.read === 'on'){
         readElement.classList.add('btn', 'read', 'read-status');
         readElement.textContent = 'Read!'
     }else{
@@ -122,3 +142,23 @@ function makeNewBook(title, author, page, read){
 
     form.reset();
 }
+
+/******************************************* Below the legacy code ********************************************/
+
+// document.addEventListener('click', (e) => {
+//     let bookChangeStatus = e.target.closest('.book');
+
+//     if (e.target.classList.contains('not-read') || e.target.classList.contains('read')) {
+//         let readButton = bookChangeStatus.querySelector('.read-status');
+//         const readCheckbox = bookChangeStatus.querySelector('.toggle');
+        
+//         // Toggle the checkbox value and update the read status accordingly
+//         if (readCheckbox.value === 'off') {
+//             readCheckbox.value = 'on';
+//             readButton.textContent = 'Read!';
+//         } else {
+//             readCheckbox.value = 'off';
+//             readButton.textContent = 'Not Read...';
+//         }
+//     }
+// });;
